@@ -1,8 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useBioStore } from '../store/bioStore';
 
-const WS_URL = 'ws://localhost:8765';
+// Auto-resolve WebSocket host from the page's own hostname.
+// Desktop → ws://localhost:8765
+// Z Flip 6 via Tailscale → ws://100.88.248.122:8765
+const WS_HOST = window.location.hostname;
+const WS_URL  = `ws://${WS_HOST}:8765`;
 const RECONNECT_MS = 2000;
+
 
 /**
  * Connects to the mock WebSocket server and pipes packets
